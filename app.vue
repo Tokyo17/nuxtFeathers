@@ -89,23 +89,23 @@ const inputMsg=ref('')
 const inputName=ref('')
 const messages=ref([])
 const isDisabled = computed(() => inputName.value == '');
-console.log(runtimeConfig.public.API)
-const socket = io(runtimeConfig.public.API)
-const client = feathers()
-client.configure(socketio(socket))
+// console.log(runtimeConfig.public.API)
+// const socket = io("http://localhost:3030")
+// const client = feathers()
+// client.configure(socketio(socket))
 
-const messageService = client.service('messages')
-  messageService.on('created', (message) =>{
-  messages.value.push(message)
-  console.log(JSON.parse(JSON.stringify(messages.value)));
-})  
+// const messageService = client.service('messages')
+//   messageService.on('created', (message) =>{
+//   messages.value.push(message)
+//   console.log(JSON.parse(JSON.stringify(messages.value)));
+// })  
 
 
 const handleButton=()=>{
-  messageService.create({
-  text: inputMsg.value,
-  name: inputName.value
-  })
+  // messageService.create({
+  // text: inputMsg.value,
+  // name: inputName.value
+  // })
   // inputMsg.value=""
 }
 const alertInput=async()=>{
@@ -130,8 +130,15 @@ if (ipAddress) {
   Swal.fire(`Hy ${ipAddress} welcome to club`);
 }
 }
+const get=async()=>{
+  const response = await fetch(runtimeConfig.public.API+"/users");
+  const movies = await response.json();
+  console.log(movies);
+}
 onBeforeMount(()=>{
-  alertInput()
+  // alertInput()
+  
+  get()
 })
 
 
