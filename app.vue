@@ -84,12 +84,13 @@ import { feathers } from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
 import Swal from 'sweetalert2'
 
+const runtimeConfig = useRuntimeConfig();
 const inputMsg=ref('')
 const inputName=ref('')
 const messages=ref([])
 const isDisabled = computed(() => inputName.value == '');
-
-const socket = io('http://localhost:3030')
+console.log(runtimeConfig.public.API)
+const socket = io(runtimeConfig.public.API)
 const client = feathers()
 client.configure(socketio(socket))
 
